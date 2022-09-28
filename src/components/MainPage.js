@@ -4,6 +4,7 @@ import axios from 'axios';
 const MainPage = () => {
   let [products, setProducts] = React.useState([]);
   let [contents, setContents] = React.useState([]);
+  let [boxs, setBoxs] = React.useState([]);
   useState([]);
 
   useEffect(() => {
@@ -14,6 +15,8 @@ const MainPage = () => {
         setProducts(products);
         contents = res.data.contents;
         setContents(contents);
+        boxs = res.data.boxs;
+        setBoxs(boxs);
   
       })
       .catch((err) => {
@@ -22,7 +25,7 @@ const MainPage = () => {
 
   }, [])
   return (
-    <>
+    <div>
       <div id="header">
         <div id="header-area">
           <img src="img/logo.png" alt="logo" />
@@ -30,7 +33,7 @@ const MainPage = () => {
       </div>
       <div id="body">
         <div id="banner">
-          <img src="img/main.jpg" alt="banner" />
+          <img src="./img/main.jpg" alt="banner" />
         </div>
         <h2>OUR VEHICLES</h2>
         <div id="product-list">
@@ -66,9 +69,30 @@ const MainPage = () => {
                 </div>
               </div>
             );
+          })},
+        </div>
+        <div class="box">
+        <h2>OUR FAMILIES</h2>
+        </div>
+        <div id="family">
+        {contents.map((box, idx) => {
+            return (
+              <div className="box-card" key={idx}>
+                <div>
+                  <img className="box-img" src={box.imageUrl} alt={box.name} />
+                </div>
+                <div className="box-content">
+                  <span className="box-name">{box.name}</span>
+                  <span className="box-price">{box.price}</span>
+                  <div className="box-seller">
+                    <span>{box.seller}</span>
+                  </div>
+                  <span className="box-text">{box.text}</span>
+                </div>
+              </div>
+            );
           })}
         </div>
-        
 
       </div>
       <div id="footer">
@@ -78,7 +102,7 @@ const MainPage = () => {
         <a href="#">위 연비는 표준모드에 의한 연비로서 도로상태·운전방법·차량적재·정비상태 및 외기온도에 따라 실주행연비와 차이가 있습니다. 상기 정보, 가격, 제원, 이미지들은 실제 국내 적용 사양과 상이할 수 있으며 성능 개선을 위하여 사전 예고 없이 변경될 수 있습니다. 해당 수치는 비교 목적으로만 참조하시기 바랍니다. 정확한 모델별 옵션 적용 사항 및 기타 자세한 사항은 가까운 랜드로버 공식 리테일러 전시장에 문의하시기 바랍니다.</a>
         <a href="#">타이어 에너지 소비 효율 등급은 https://www.landroverkorea.co.kr/ownership/land-rover-tire-energy-efficiency-rating.html를 참조하시기 바랍니다.</a>
       </div>
-    </>
+    </div>
   );
 };
 export default MainPage;
